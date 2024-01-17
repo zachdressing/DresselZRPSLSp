@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="../styles/style.css">
 </head>
 
-<body>
+<body onload="iniBattle()">
     <header>
         <div id="header" class="container w-50">
             <div class="col">
@@ -32,27 +32,27 @@
     <div id="points" class="container w-50">
         <div class="col">
             <h4 id="onePoints" hidden>Player 1 Points</h4>
-            <img id="Player1Choice" src="" alt="" hidden>
+            <img id="Player1Choice" src="" alt="">
         </div>
         <div class="col">
             <h2>VS</h2>
         </div>
         <div class="col">
             <h4 id="twoPoints" hidden>Player 2 Points</h4>
-            <img id="Player2Choice" src="" alt="" hidden>
+            <img id="Player2Choice" src="" alt="">
         </div>
     </div>
 
     <div id="choices" class="container w-50">
-        <div class="col"> <img id="rock" src="../assets/images/rockIcon.png">
+        <div class="col" role="button"><img id="rock" src="../assets/images/rockIcon.png">
         </div>
-        <div class="col"> <img id="paper" src="../assets/images/paperIcon.png">
+        <div class="col" role="button"><img id="paper" src="../assets/images/paperIcon.png">
         </div>
-        <div class="col"> <img id="scissors" src="../assets/images/scissorIcon.png">
+        <div class="col"><a href="" onclick="return false"><img id="scissors" src="../assets/images/scissorIcon.png"></a>
         </div>
-        <div class="col"> <img id="lizard" src="../assets/images/lizardIcon.png">
+        <div class="col"><a href="" onclick="return false"><img id="lizard" src="../assets/images/lizardIcon.png"></a>
         </div>
-        <div class="col"> <img id="spock" src="../assets/images/spockIcon.png">
+        <div class="col"><a href="" onclick="return false"> <img id="spock" src="../assets/images/spockIcon.png"></a>
         </div>
     </div>
 

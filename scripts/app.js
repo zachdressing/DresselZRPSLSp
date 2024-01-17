@@ -3,10 +3,16 @@ let instructButt = document.getElementById('instructionsButton');
 let instructImg = document.getElementById('instructionImg');
 let bestOf = document.getElementById('bestOf');
 let roundsNum = document.getElementById('roundsNum');
+let cpuCheck = document.getElementById('vsCPU');
+let humCheck = document.getElementById('vsHuman');
+let vsType = document.getElementById('vsType');
 
 let numofRounds = 0;
 
+let vsCPU = false;
+
 const bestofArray = [1, 5, 7];
+const choices = [];
 
 async function APICall() {
     const promise = await fetch(apiURL);
@@ -29,6 +35,17 @@ bestOf.addEventListener('click', e =>{
     roundsNum.textContent = bestofArray[numofRounds];
 })
 
+cpuCheck.addEventListener('click', e => vsCPU = true, console.log(vsCPU));
 
-function ini(){
+
+function iniBattle(){
+    if(vsCPU){
+        vsType.style.display = "block";
+        vsType.textContent = "vs CPU";
+    }
+    else if(!vsCPU){
+        vsType.style.display = "block";
+        vsType.textContent = "vs Human";
+    }
+    else{console.log("something is wrong")}
 }
