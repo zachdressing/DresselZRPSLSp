@@ -1,0 +1,43 @@
+* {
+    font-family: 'Lexend Zetta', sans-serif;
+}
+
+#header, #points {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#header h1{
+    text-align: center;
+    font-size: 48px;
+}
+
+hr {
+    height: 1px;
+    border:none;
+    color: #000000;
+    background-color: #000000;
+    width: 50%;
+    margin: auto auto;
+}
+
+#points img{
+    height: 300px;
+    width: 300px;
+}
+
+#choices {
+    display: flex;
+}
+
+#choices .col {
+    display: flex;
+    justify-content: center;
+}
+
+#choices img {
+    width: 150px;
+    height: 150px;
+}
