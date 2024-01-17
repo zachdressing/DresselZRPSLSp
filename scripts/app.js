@@ -1,8 +1,12 @@
 const apiURL = "https://rpslsapi.azurewebsites.net/RPSLS";
 let instructButt = document.getElementById('instructionsButton');
 let instructImg = document.getElementById('instructionImg');
+let bestOf = document.getElementById('bestOf');
+let roundsNum = document.getElementById('roundsNum');
 
-const bestofArray = [1, 3, 7];
+let numofRounds = 0;
+
+const bestofArray = [1, 5, 7];
 
 async function APICall() {
     const promise = await fetch(apiURL);
@@ -11,7 +15,20 @@ async function APICall() {
 }
 
 instructButt.addEventListener('click', e => {
-    console.log(instructImg.src)
     if (instructImg.src.includes("InstructionText")) { instructImg.src = "./assets/images/Instructions.png" }
     else { instructImg.src = "./assets/images/InstructionText.png" }
 });
+
+bestOf.addEventListener('click', e =>{
+    if(numofRounds < bestofArray.length-1){
+        numofRounds++;
+    }
+    else if(numofRounds == 2){
+        numofRounds = 0;
+    }
+    roundsNum.textContent = bestofArray[numofRounds];
+})
+
+
+function ini(){
+}
