@@ -12,47 +12,54 @@
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="./styles/style.css">
 </head>
+
 <body>
     <header>
-        <div id="header" class="container w-50">
+        <div id="header" class="container">
             <div class="col">
-                <h5>of 1</h5>
-            </div>
-            <div class="col">
-                <h1>RPSLSp</h1>
-            </div>
-            <div class="col">
-                <h5>vs CPU</h5>
+                <img src="./assets/images/RPSLSp.png">
             </div>
         </div>
         <hr>
     </header>
 
-    </div>
-    <div id="points" class="container w-50">
+    <div id="instructions" class="container">
         <div class="col">
-            <h4>Player 1 Points</h4>
-            <img id="Player1Choice" src="">
+
         </div>
         <div class="col">
-            <h1>VS</h1>
+            <img id="instructionImg" src="./assets/images/Instructions.png">
         </div>
-        <div class="col">
-            <h4>Player 2 Points</h4>
-            <img id="Player2Choice" src="">
-        </div>
+        <div class="col"><a href="" onclick="return false;" s-toggle="modal" data-bs-target="#Modal"><img id="instructionsButton" src="./assets/images/Information Button.png"></a></div>
     </div>
 
-    <div id="choices" class="container w-50">
-        <div class="col"> <img id="rock" src="./assets/images/rockPlaceholder.png">
+    <div class="modal fade" id="Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              ...
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+          </div>
         </div>
-        <div class="col"> <img id="paper" src="./assets/images/paperPlaceHolder.png">
+      </div>
+
+    <div id="startChoices" class="container">
+        <div class="row">
+            <h1><a id="vsCPU" href="./pages/Battle.html">Start vs CPU</a></h1>
         </div>
-        <div class="col"> <img id="scissors" src="./assets/images/scissorsPlaceholder.png">
+        <div class="row">
+            <h1><a id="vsHuman" href="./pages/Battle.html">Start vs Human</a></h1>
         </div>
-        <div class="col"> <img id="lizard" src="./assets/images/lizardPlaceholder.png">
-        </div>
-        <div class="col"> <img id="spock" src="./assets/images/spockPlaceholder.png">
+        <div class="row">
+            <h1><a id="bestOf">Best of 1</a></h1>
         </div>
     </div>
 
