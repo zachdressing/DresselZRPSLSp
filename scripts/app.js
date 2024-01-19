@@ -19,13 +19,19 @@ let spock = document.getElementById('spock');
 let numofRounds = 0;
 const bestofArray = [1, 5, 7, "Tug of War"];
 
-//do my localstorage settings for the type of match
 const currentURL = window.location.href;
 if (currentURL.includes("index")) {
     localStorage.clear();
     localStorage.setItem("roundsNum", bestofArray[numofRounds]);
 };
 let vsCPU = localStorage.getItem("vsCPU");
+
+async function ApiCall() {
+    let response = await fetch("https://rpslsapi.azurewebsites.net/RPSLS");
+    let output = await response.text();
+    console.log(output)
+    p2Choice = output;
+} 
 
 
 async function homePage() {
@@ -47,33 +53,27 @@ async function homePage() {
     cpuCheck.addEventListener('click', e => localStorage.setItem("vsCPU", true));
 };
 
+let p1Choice;
 
-async function iniBattle() {
-    const rockWin = ["Scissors", "Lizard"];
-    const paperWin = ["Rock", "Spock"];
-    const scissWins = ["Paper", "Lizard"];
-    const lizWin = ["Spock", "Paper"];
-    const spockWin = ["Rock", "Scissors"];
+let p2Choice;
 
-    let p1Choices = [];
-    let p2Choices = [];
+
+ function iniBattle() {
+    const RockWin = ["Scissors", "Lizard"];
+    const PaperWin = ["Rock", "Spock"];
+    const ScissorsWin = ["Paper", "Lizard"];
+    const LizardWin = ["Spock", "Paper"];
+    const SpockWin = ["Rock", "Scissors"];
+
     let totalChoices = 0;
+    let p1Points = 0;
+    let p2Points = 0;
 
-    async function ApiCall() {
-        fetch("https://rpslsapi.azurewebsites.net/RPSLS")
-            .then((response) => {
-                return response.text();
-            })
-            .then((data) => {
-                p2Choices.push(data);
-            })
-    }
+    let roundNum = localStorage.getItem("roundsNum");
+    roundsNum.textContent = roundNum;
 
-    for (let i = 0; i < localStorage.getItem("roundsNum"); i++) {
-        ApiCall();
-    }
+    let ptWin = Math.ceil(roundNum / 2);
 
-    totalChoices = 0;
     if (vsCPU) {
         vsType.style.display = "block";
         vsType.textContent = "vs CPU";
@@ -82,44 +82,207 @@ async function iniBattle() {
         vsType.style.display = "block";
         vsType.textContent = "vs Human";
     }
-    else { console.log("something is wrong") }
 
-    let roundNum = localStorage.getItem("roundsNum");
-    roundsNum.textContent = roundNum;
-
-    let ptWin = Math.ceil(roundNum / 2);
-
-    rock.addEventListener('click', e => {
-        p1Choices.push("Rock");
-        pushChoices(p1Choices);
-        totalChoices++;
-        winCheck;
+    rock.addEventListener('click', async () => {
+        if(vsCPU){
+            await ApiCall();
+            p1Choice = 'Rock';
+            console.log(p1Choice);
+            console.log(p2Choice)
+            pushChoices();
+            winCheck();
+            totalChoices++;
+        }
+        else{
+            if(totalChoices == 0){
+                p1Choice = 'Rock';
+                totalChoices++;
+                console.log(totalChoices)
+            }
+            else{
+                p2Choice = 'Rock';
+                pushChoices();
+                winCheck();
+                totalChoices--;
+            }
+        }
     })
 
-    async function pushChoices(p1Choices) {
+    paper.addEventListener('click', async () => {
+        if(vsCPU){
+            await ApiCall();
+            p1Choice = 'Paper';
+            console.log(p1Choice);
+            console.log(p2Choice)
+            pushChoices();
+            winCheck();
+            totalChoices++;
+        }
+        else{
+            if(totalChoices == 0){
+                p1Choice = 'Paper';
+                totalChoices++;
+                console.log(totalChoices)
+            }
+            else{
+                p2Choice = 'Paper';
+                pushChoices();
+                winCheck();
+                totalChoices--;
+            }
+        }
+    })
+
+    scissors.addEventListener('click', async () => {
+        if(vsCPU){
+            await ApiCall();
+            p1Choice = 'Scissors';
+            console.log(p1Choice);
+            console.log(p2Choice)
+            pushChoices();
+            winCheck();
+            totalChoices++;
+        }
+        else{
+            if(totalChoices == 0){
+                p1Choice = 'Scissors';
+                totalChoices++;
+                console.log(totalChoices)
+            }
+            else{
+                p2Choice = 'Scissors';
+                pushChoices();
+                winCheck();
+                totalChoices--;
+            }
+        }
+    })
+
+    lizard.addEventListener('click', async () => {
+        if(vsCPU){
+            await ApiCall();
+            p1Choice = 'Lizard';
+            console.log(p1Choice);
+            console.log(p2Choice)
+            pushChoices();
+            winCheck();
+            totalChoices++;
+        }
+        else{
+            if(totalChoices == 0){
+                p1Choice = 'Lizard';
+                totalChoices++;
+                console.log(totalChoices)
+            }
+            else{
+                p2Choice = 'Lizard';
+                pushChoices();
+                winCheck();
+                totalChoices--;
+            }
+        }
+    })
+
+    spock.addEventListener('click', async () => {
+        if(vsCPU){
+            await ApiCall();
+            p1Choice = 'Spock';
+            console.log(p1Choice);
+            console.log(p2Choice)
+            pushChoices();
+            winCheck();
+            totalChoices++;
+        }
+        else{
+            if(totalChoices == 0){
+                p1Choice = 'Spock';
+                totalChoices++;
+                console.log(totalChoices)
+            }
+            else{
+                p2Choice = 'Spock';
+                pushChoices();
+                winCheck();
+                totalChoices--;
+            }
+        }
+    })
+
+    function pushChoices() {
         choice1.style.display = "block";
         choice2.style.display = "block";
-        choice1.src = `../assets/images/${p1Choices[totalChoices]}Icon.png`
-        choice2.src = `../assets/images/${p2Choices[totalChoices]}Icon.png`
+        choice1.src = `../assets/images/${p1Choice}Icon.png`
+        choice2.src = `../assets/images/${p2Choice}Icon.png`
     };
 
-    async function winCheck(ptWin) {
-//Run the two choices through a statement to see if P1 Wins or P2 Wins through the Arrays. Then give out points and then check to see if one player wins.
+    function winCheck() {
+        if (p1Choice == 'Rock') {
+            if (RockWin.includes(p2Choice)) {
+                p1Points++;
+            }
+            else if (!RockWin.includes(p2Choice) && p1Choice !== p2Choice) {
+                p2Points++;
+            }
+        }
 
-        if (onePoints >= ptWin) { }
-        else if (twoPoints >= ptWin) { }
-        else { }
+        if (p1Choice == 'Paper') {
+            if (PaperWin.includes(p2Choice)) {
+                p1Points++;
+            }
+            else if (!PaperWin.includes(p2Choice) && p1Choice !== p2Choice) {
+                p2Points++;
+            }
+        }
+
+        if (p1Choice == 'Scissors') {
+            if (ScissorsWin.includes(p2Choice)) {
+                p1Points++;
+            }
+            else if (!ScissorsWin.includes(p2Choice) && p1Choice !== p2Choice) {
+                p2Points++;
+            }
+        }
+
+        if (p1Choice == 'Lizard') {
+            if (LizardWin.includes(p2Choice)) {
+                p1Points++;
+            }
+            else if (!LizardWin.includes(p2Choice) && p1Choice !== p2Choice) {
+                p2Points++;
+            }
+        }
+
+        if (p1Choice == 'Spock') {
+            if (SpockWin.includes(p2Choice)) {
+                p1Points++;
+            }
+            else if (!SpockWin.includes(p2Choice) && p1Choice !== p2Choice) {
+                p2Points++;
+            }
+        }
+
+        onePoints.innerText = `${p1Points} Point(s)`;
+        twoPoints.innerHTML = `${p2Points} Point(s)`;
+        onePoints.style.display = 'block';
+        twoPoints.style.display = 'block';
+
+        if (p1Points >= ptWin) {
+            onePoints.innerHTML = 'Player One Wins';
+            twoPoints.style.display = 'none';
+            rock.style.display = 'none';
+            paper.style.display = 'none';
+            scissors.style.display = 'none';
+            lizard.style.display = 'none';
+            spock.style.display = 'none';
+        }
+        else if (p2Points >= ptWin) {
+            twoPoints.innerHTML = 'Player Two Wins';
+            onePoints.style.display = 'none';
+            rock.style.display = 'none';
+            paper.style.display = 'none';
+            scissors.style.display = 'none';
+            lizard.style.display = 'none';
+            spock.style.display = 'none';
+        }
     }
 }
-
-
-//Currently looking at putting all the possible outcomes as hard-coded if statements because of using string values in the choices array.We would need to hard-code it
-
-//issue is that it seems like the call for the API is setting the value after the value is being called.
-
-
-//Check to see if CPU or Human, Then grab user choice, then if CPU grab API call and then set secondplayer choice as Api output, if human wait for another choice.
-
-//So on click of any of the choices, run a function that saves that choice, then check for CPU. If its CPU then call API and then set choices as images in the middle. Add Points through if statement,
-//and then run winCheck.
-// If Human, wait for it to be the second choice picked and then set the choices as p1 and p2 choices then add score and wincheck. 

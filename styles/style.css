@@ -83,6 +83,14 @@ hr {
     width: 300px;
 }
 
+#points .col{
+    margin-top: 50px;
+}
+
+#onePoints, #twoPoints{
+    display: none;
+}
+
 #points img {
     height: 300px;
     width: 300px;
