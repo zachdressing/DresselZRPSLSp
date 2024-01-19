@@ -31,7 +31,7 @@ async function ApiCall() {
     let output = await response.text();
     console.log(output)
     p2Choice = output;
-} 
+}
 
 
 async function homePage() {
@@ -58,7 +58,7 @@ let p1Choice;
 let p2Choice;
 
 
- function iniBattle() {
+function iniBattle() {
     const RockWin = ["Scissors", "Lizard"];
     const PaperWin = ["Rock", "Spock"];
     const ScissorsWin = ["Paper", "Lizard"];
@@ -83,128 +83,68 @@ let p2Choice;
         vsType.textContent = "vs Human";
     }
 
-    rock.addEventListener('click', async () => {
-        if(vsCPU){
-            await ApiCall();
-            p1Choice = 'Rock';
-            console.log(p1Choice);
-            console.log(p2Choice)
-            pushChoices();
-            winCheck();
+    async function onClickCPU(choice) {
+        await ApiCall();
+        p1Choice = `${choice}`;
+        pushChoices();
+        winCheck();
+    }
+
+    async function onClickHum(choice) {
+        if (totalChoices == 0) {
+            p1Choice = `${choice}`;
             totalChoices++;
         }
-        else{
-            if(totalChoices == 0){
-                p1Choice = 'Rock';
-                totalChoices++;
-                console.log(totalChoices)
-            }
-            else{
-                p2Choice = 'Rock';
-                pushChoices();
-                winCheck();
-                totalChoices--;
-            }
+        else {
+            p2Choice = `${choice}`;
+            pushChoices();
+            winCheck();
+            totalChoices--;
+        }
+    }
+
+    rock.addEventListener('click', async () => {
+        if (vsCPU) {
+            onClickCPU("Rock");
+        }
+        else {
+            onClickHum("Rock");
         }
     })
 
     paper.addEventListener('click', async () => {
-        if(vsCPU){
-            await ApiCall();
-            p1Choice = 'Paper';
-            console.log(p1Choice);
-            console.log(p2Choice)
-            pushChoices();
-            winCheck();
-            totalChoices++;
+        if (vsCPU) {
+            onClickCPU("Paper");
         }
-        else{
-            if(totalChoices == 0){
-                p1Choice = 'Paper';
-                totalChoices++;
-                console.log(totalChoices)
-            }
-            else{
-                p2Choice = 'Paper';
-                pushChoices();
-                winCheck();
-                totalChoices--;
-            }
+        else {
+            onClickHum("Paper");
         }
     })
 
     scissors.addEventListener('click', async () => {
-        if(vsCPU){
-            await ApiCall();
-            p1Choice = 'Scissors';
-            console.log(p1Choice);
-            console.log(p2Choice)
-            pushChoices();
-            winCheck();
-            totalChoices++;
+        if (vsCPU) {
+            onClickCPU("Scissors");
         }
-        else{
-            if(totalChoices == 0){
-                p1Choice = 'Scissors';
-                totalChoices++;
-                console.log(totalChoices)
-            }
-            else{
-                p2Choice = 'Scissors';
-                pushChoices();
-                winCheck();
-                totalChoices--;
-            }
+        else {
+            onClickHum("Scissors");
         }
     })
 
     lizard.addEventListener('click', async () => {
-        if(vsCPU){
-            await ApiCall();
-            p1Choice = 'Lizard';
-            console.log(p1Choice);
-            console.log(p2Choice)
-            pushChoices();
-            winCheck();
-            totalChoices++;
+        if (vsCPU) {
+            onClickCPU("Lizard");
         }
-        else{
-            if(totalChoices == 0){
-                p1Choice = 'Lizard';
-                totalChoices++;
-                console.log(totalChoices)
-            }
-            else{
-                p2Choice = 'Lizard';
-                pushChoices();
-                winCheck();
-                totalChoices--;
-            }
+        else {
+            onClickHum("Lizard");
         }
     })
 
     spock.addEventListener('click', async () => {
-        if(vsCPU){
-            await ApiCall();
-            p1Choice = 'Spock';
-            console.log(p1Choice);
-            console.log(p2Choice)
-            pushChoices();
-            winCheck();
-            totalChoices++;
+        if (vsCPU) {
+            onClickCPU("Spock");
         }
-        else{
-            if(totalChoices == 0){
-                p1Choice = 'Spock';
-                totalChoices++;
-                console.log(totalChoices)
-            }
-            else{
-                p2Choice = 'Spock';
-                pushChoices();
-                winCheck();
-                totalChoices--;
-            }
+        else {
+            onClickHum("Spock");
         }
     })
 
