@@ -18,8 +18,6 @@ let spock = document.getElementById('spock');
 
 let numofRounds = 0;
 const bestofArray = [1, 5, 7, "Tug of War"];
-let choices = [];
-let totalChoices = 0;
 
 //do my localstorage settings for the type of match
 const currentURL = window.location.href;
@@ -29,16 +27,7 @@ if (currentURL.includes("index")) {
 };
 let vsCPU = localStorage.getItem("vsCPU");
 
-async function ApiCall() {
-    fetch("https://rpslsapi.azurewebsites.net/RPSLS")
-        .then((response) => {
-            return response.text()
-        })
-        .then((data) => {
-            choices.push(data);
-            console.log(choices);
-        })
-}
+
 
 async function homePage() {
     instructButt.addEventListener('click', e => {
@@ -62,6 +51,35 @@ async function homePage() {
 
 
 async function iniBattle() {
+
+    let choices = [];
+    let compChoices = [];
+    let totalChoices = 0;
+
+    async function ApiCall() {
+        fetch("https://rpslsapi.azurewebsites.net/RPSLS")
+            .then((response) => {
+                return response.text();
+            })
+            .then((data) => {
+                compChoices.push(data);
+                console.log(compChoices);
+            })
+    }
+    
+    for(let i = 0; i < localStorage.getItem("roundsNum");i++){
+        ApiCall();
+    }
+
+    //ApiCall();
+    //ApiCall();
+    //ApiCall();
+    //ApiCall();
+    //ApiCall();
+    //ApiCall();
+    //ApiCall();
+
+
     totalChoices = 0;
     if (vsCPU) {
         vsType.style.display = "block";
@@ -78,16 +96,13 @@ async function iniBattle() {
 
     let ptWin = Math.ceil(roundNum / 2);
 
-    rock.addEventListener('click', e => { if (vsCPU) { ApiCall() }; totalChoices++; choices.push("Rock"); pushChoices(choices); })
+    rock.addEventListener('click', e => { choices.push("Rock"); pushChoices(choices); totalChoices++;})
 
     async function pushChoices(choices) {
         choice1.style.display = "block";
         choice2.style.display = "block";
-        choice1.src = `../assets/images/${choices[0]}Icon.png`
-        console.log(choice1.src);
-        console.log(choices[1]);
-        choice2.src = `./assets/images/${choices[1]}Icon.png`
-        console.log(choice2.src);
+        choice1.src = `../assets/images/${choices[totalChoices]}Icon.png`
+        choice2.src = `../assets/images/${compChoices[totalChoices]}Icon.png`
     };
 
     //async function winCheck(ptWin) {
@@ -100,7 +115,7 @@ async function iniBattle() {
 
 //Currently looking at putting all the possible outcomes as hard-coded if statements because of using string values in the choices array.We would need to hard-code it
 
-
+//issue is that it seems like the call for the API is setting the value after the value is being called.
 
 
 //Check to see if CPU or Human, Then grab user choice, then if CPU grab API call and then set secondplayer choice as Api output, if human wait for another choice.
