@@ -151,8 +151,8 @@ function iniBattle() {
     function pushChoices() {
         choice1.style.display = "block";
         choice2.style.display = "block";
-        choice1.src = `../assets/images/${p1Choice}Icon.png`
-        choice2.src = `../assets/images/${p2Choice}Icon.png`
+        choice1.src = `/assets/images/${p1Choice}Icon.png`
+        choice2.src = `/assets/images/${p2Choice}Icon.png`
     };
 
     function winCheck() {
