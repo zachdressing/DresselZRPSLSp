@@ -26,14 +26,6 @@ if (currentURL.includes("index")) {
 };
 let vsCPU = localStorage.getItem("vsCPU");
 
-async function ApiCall() {
-    let response = await fetch("https://rpslsapi.azurewebsites.net/RPSLS");
-    let output = await response.text();
-    console.log(output)
-    p2Choice = output;
-}
-
-
 async function homePage() {
     instructButt.addEventListener('click', e => {
         if (instructImg.src.includes("InstructionText")) { instructImg.src = "./assets/images/Instructions.png" }
@@ -53,11 +45,6 @@ async function homePage() {
     cpuCheck.addEventListener('click', e => localStorage.setItem("vsCPU", true));
 };
 
-let p1Choice;
-
-let p2Choice;
-
-
 function iniBattle() {
     const RockWin = ["Scissors", "Lizard"];
     const PaperWin = ["Rock", "Spock"];
@@ -65,6 +52,8 @@ function iniBattle() {
     const LizardWin = ["Spock", "Paper"];
     const SpockWin = ["Rock", "Scissors"];
 
+    let p1Choice;
+    let p2Choice;
     let totalChoices = 0;
     let p1Points = 0;
     let p2Points = 0;
@@ -83,6 +72,12 @@ function iniBattle() {
         vsType.textContent = "vs Human";
     }
 
+    async function ApiCall() {
+        let response = await fetch("https://rpslsapi.azurewebsites.net/RPSLS");
+        let output = await response.text();
+        p2Choice = output.toLowerCase();
+    }
+
     async function onClickCPU(choice) {
         await ApiCall();
         p1Choice = `${choice}`;
@@ -91,67 +86,34 @@ function iniBattle() {
     }
 
     async function onClickHum(choice) {
-        if (totalChoices == 0) {
-            p1Choice = `${choice}`;
-            totalChoices++;
-        }
-        else {
-            p2Choice = `${choice}`;
-            pushChoices();
-            winCheck();
-            totalChoices--;
-        }
+        totalChoices == 0 ? (p1Choice = `${choice}`, totalChoices++) : (p2Choice = `${choice}`, pushChoices(), winCheck(), totalChoices--)
     }
 
     rock.addEventListener('click', async () => {
-        if (vsCPU) {
-            onClickCPU("Rock");
-        }
-        else {
-            onClickHum("Rock");
-        }
+        vsCPU ? onClickCPU("Rock") : onClickHum("Rock")
     })
 
     paper.addEventListener('click', async () => {
-        if (vsCPU) {
-            onClickCPU("Paper");
-        }
-        else {
-            onClickHum("Paper");
-        }
+        vsCPU ? onClickCPU("Paper") : onClickHum("Paper");
     })
 
     scissors.addEventListener('click', async () => {
-        if (vsCPU) {
-            onClickCPU("Scissors");
-        }
-        else {
-            onClickHum("Scissors");
-        }
+        vsCPU ? onClickCPU("Scissors") : onClickHum("Scissors");
     })
 
     lizard.addEventListener('click', async () => {
-        if (vsCPU) {
-            onClickCPU("Lizard");
-        }
-        else {
-            onClickHum("Lizard");
-        }
+        vsCPU ? onClickCPU("Lizard") : onClickHum("Lizard");
     })
 
     spock.addEventListener('click', async () => {
-        if (vsCPU) {
-            onClickCPU("Spock");
-        }
-        else {
-            onClickHum("Spock");
-        }
+        vsCPU ? onClickCPU("Spcok") : onClickHum("Spock");
+
     })
 
     function pushChoices() {
         choice1.style.display = "block";
         choice2.style.display = "block";
-        choice1.src = `/assets/images/${p1Choice}Icon.png`
+        choice1.src = `/assets/images/${p1Choice.toLowerCase()}Icon.png`
         choice2.src = `/assets/images/${p2Choice}Icon.png`
     };
 
@@ -209,15 +171,12 @@ function iniBattle() {
         if (p1Points >= ptWin) {
             onePoints.innerHTML = 'Player One Wins';
             twoPoints.style.display = 'none';
-            rock.style.display = 'none';
-            paper.style.display = 'none';
-            scissors.style.display = 'none';
-            lizard.style.display = 'none';
-            spock.style.display = 'none';
         }
         else if (p2Points >= ptWin) {
             twoPoints.innerHTML = 'Player Two Wins';
             onePoints.style.display = 'none';
+        }
+        if(p1Points >= ptWin || p2Points >= ptWin){
             rock.style.display = 'none';
             paper.style.display = 'none';
             scissors.style.display = 'none';
