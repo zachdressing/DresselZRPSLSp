@@ -28,7 +28,6 @@ if (currentURL.includes("index")) {
 let vsCPU = localStorage.getItem("vsCPU");
 
 
-
 async function homePage() {
     instructButt.addEventListener('click', e => {
         if (instructImg.src.includes("InstructionText")) { instructImg.src = "./assets/images/Instructions.png" }
@@ -49,11 +48,15 @@ async function homePage() {
 };
 
 
-
 async function iniBattle() {
+    const rockWin = ["Scissors", "Lizard"];
+    const paperWin = ["Rock", "Spock"];
+    const scissWins = ["Paper", "Lizard"];
+    const lizWin = ["Spock", "Paper"];
+    const spockWin = ["Rock", "Scissors"];
 
-    let choices = [];
-    let compChoices = [];
+    let p1Choices = [];
+    let p2Choices = [];
     let totalChoices = 0;
 
     async function ApiCall() {
@@ -62,23 +65,13 @@ async function iniBattle() {
                 return response.text();
             })
             .then((data) => {
-                compChoices.push(data);
-                console.log(compChoices);
+                p2Choices.push(data);
             })
     }
-    
-    for(let i = 0; i < localStorage.getItem("roundsNum");i++){
+
+    for (let i = 0; i < localStorage.getItem("roundsNum"); i++) {
         ApiCall();
     }
-
-    //ApiCall();
-    //ApiCall();
-    //ApiCall();
-    //ApiCall();
-    //ApiCall();
-    //ApiCall();
-    //ApiCall();
-
 
     totalChoices = 0;
     if (vsCPU) {
@@ -96,20 +89,27 @@ async function iniBattle() {
 
     let ptWin = Math.ceil(roundNum / 2);
 
-    rock.addEventListener('click', e => { choices.push("Rock"); pushChoices(choices); totalChoices++;})
+    rock.addEventListener('click', e => {
+        p1Choices.push("Rock");
+        pushChoices(p1Choices);
+        totalChoices++;
+        winCheck;
+    })
 
-    async function pushChoices(choices) {
+    async function pushChoices(p1Choices) {
         choice1.style.display = "block";
         choice2.style.display = "block";
-        choice1.src = `../assets/images/${choices[totalChoices]}Icon.png`
-        choice2.src = `../assets/images/${compChoices[totalChoices]}Icon.png`
+        choice1.src = `../assets/images/${p1Choices[totalChoices]}Icon.png`
+        choice2.src = `../assets/images/${p2Choices[totalChoices]}Icon.png`
     };
 
-    //async function winCheck(ptWin) {
-    //    if (onePoints >= ptWin) { }
-    //    else if (twoPoints >= ptWin) { }
-    //    else { }
-    //}
+    async function winCheck(ptWin) {
+//Run the two choices through a statement to see if P1 Wins or P2 Wins through the Arrays. Then give out points and then check to see if one player wins.
+
+        if (onePoints >= ptWin) { }
+        else if (twoPoints >= ptWin) { }
+        else { }
+    }
 }
 
 
