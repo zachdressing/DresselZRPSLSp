@@ -75,7 +75,7 @@ function iniBattle() {
     async function ApiCall() {
         let response = await fetch("https://rpslsapi.azurewebsites.net/RPSLS");
         let output = await response.text();
-        p2Choice = output.toLowerCase();
+        p2Choice = output;
     }
 
     async function onClickCPU(choice) {
@@ -114,7 +114,7 @@ function iniBattle() {
         choice1.style.display = "block";
         choice2.style.display = "block";
         choice1.src = `/assets/images/${p1Choice.toLowerCase()}Icon.png`
-        choice2.src = `/assets/images/${p2Choice}Icon.png`
+        choice2.src = `/assets/images/${p2Choice.toLowerCase()}Icon.png`
     };
 
     function winCheck() {
@@ -183,5 +183,7 @@ function iniBattle() {
             lizard.style.display = 'none';
             spock.style.display = 'none';
         }
+        console.log(p1Choice);
+        console.log(p2Choice)
     }
 }
