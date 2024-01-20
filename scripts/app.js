@@ -17,7 +17,7 @@ let lizard = document.getElementById('lizard');
 let spock = document.getElementById('spock');
 
 let numofRounds = 0;
-const bestofArray = [1, 5, 7, "Tug of War"];
+const bestofArray = [1, 5, 7];
 
 const currentURL = window.location.href;
 if (currentURL.includes("index")) {
